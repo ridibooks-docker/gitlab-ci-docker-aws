@@ -6,7 +6,7 @@ if [ -z "${ECS_CLI_VERSION}" ]; then
     ECS_CLI_VERSION=1.4.0
 fi
 
-CONTAINER_ARCHITECTURE=linux_amd64
+CONTAINER_ARCHITECTURE=linux-amd64
 
 echo "=> Building start with args"
 echo "CONTAINER_ARCHITECTURE=${CONTAINER_ARCHITECTURE}"
