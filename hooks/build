@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-set -e
-
-ECS_CLI_VERSION=${DOCKER_TAG} bin/build.sh
