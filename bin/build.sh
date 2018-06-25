@@ -24,10 +24,10 @@ echo "AWS_CLI_VERSION=${AWS_CLI_VERSION}"
 echo "ECS_CLI_VERSION=${ECS_CLI_VERSION}"
 echo "S3_CMD_VERSION=${S3_CMD_VERSION}"
 
-echo "Build a image - ridibooks/gitlab-ci-ecs-cli:${DOCKER_TAG}"
+echo "Build a image - ridibooks/gitlab-ci-docker-aws:${DOCKER_TAG}"
 docker build --pull \
   --build-arg CONTAINER_ARCHITECTURE=${CONTAINER_ARCHITECTURE} \
   --build-arg AWS_CLI_VERSION=${AWS_CLI_VERSION} \
   --build-arg ECS_CLI_VERSION=${ECS_CLI_VERSION} \
   --build-arg S3_CMD_VERSION=${S3_CMD_VERSION} \
-  -t ridibooks/gitlab-ci-ecs-cli:${DOCKER_TAG} .
+  -t ridibooks/gitlab-ci-docker-aws:${DOCKER_TAG} .

@@ -3,4 +3,4 @@
 set -e
 
 docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
-docker push ridibooks/gitlab-ci-ecs-cli
+docker push ridibooks/gitlab-ci-docker-aws
