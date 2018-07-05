@@ -6,9 +6,14 @@ ARG AWS_CLI_VERSION=1.15.45
 ARG ECS_CLI_VERSION=1.6.0
 ARG S3_CMD_VERSION=2.0.1
 
+# aws-cli uses 'less -R'. However less with R option is not available in alpine linux
+ENV PAGER=more
+
+# groff is required by aws-cli
 RUN apk add -v --update \
     bash \
     curl \
+    groff \
     jq \
     make \
     python \
