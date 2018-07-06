@@ -18,6 +18,7 @@ RUN apk add -v --update \
     make \
     python \
     py-pip \
+    zip \
 
 # Install aws-cli, s3cmd, docker-compose
 && pip install --upgrade awscli==${AWS_CLI_VERSION} s3cmd==${S3_CMD_VERSION} python-magic docker-compose \
