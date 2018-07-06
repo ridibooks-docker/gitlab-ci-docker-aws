@@ -7,5 +7,6 @@
 - docker-compose
 - aws-cli
 - ecs-cli
-- s3
+- awsebcli
+- s3cmd
 - jq
