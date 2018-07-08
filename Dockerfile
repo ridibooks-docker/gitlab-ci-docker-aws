@@ -4,7 +4,7 @@ MAINTAINER "Kang Ki Tae <kt.kang@ridi.com>"
 ARG CONTAINER_ARCHITECTURE=linux-amd64
 ARG AWS_CLI_VERSION=1.15.45
 ARG ECS_CLI_VERSION=1.6.0
-ARG EB_CLI_VERSION=3.7.8
+ARG EB_CLI_VERSION=3.14.2
 ARG S3_CMD_VERSION=2.0.1
 
 # aws-cli uses 'less -R'. However less with R option is not available in alpine linux
@@ -19,6 +19,7 @@ RUN apk add -v --update \
     make \
     python \
     py-pip \
+    py-setuptools \
     zip \
 
 # Install aws-cli, s3cmd, docker-compose
