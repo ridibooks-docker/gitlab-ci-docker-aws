@@ -9,7 +9,7 @@ if [ -z "${AWS_CLI_VERSION}" ]; then
 fi
 
 if [ -z "${ECS_CLI_VERSION}" ]; then
-    ECS_CLI_VERSION=1.6.0
+    ECS_CLI_VERSION=1.7.0
 fi
 
 if [ -z "${S3_CMD_VERSION}" ]; then
