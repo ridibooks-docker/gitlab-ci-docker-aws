@@ -1,32 +1,38 @@
 FROM library/docker:stable
-MAINTAINER "Kang Ki Tae <kt.kang@ridi.com>"
 
 ARG CONTAINER_ARCHITECTURE=linux-amd64
-ARG AWS_CLI_VERSION=1.15.45
-ARG ECS_CLI_VERSION=1.7.0
-ARG EB_CLI_VERSION=3.14.2
-ARG S3_CMD_VERSION=2.0.1
+ARG AWS_CLI_VERSION
+ARG ECS_CLI_VERSION
+ARG EB_CLI_VERSION
+ARG S3_CMD_VERSION
+ARG DOCKER_COMPOSE_VERSION
 
 # aws-cli uses 'less -R'. However less with R option is not available in alpine linux
 ENV PAGER=more
 
 # groff is required by aws-cli
-RUN apk add -v --update \
-    bash \
-    curl \
-    groff \
-    jq \
-    make \
-    python \
+RUN apk add --no-cache -v --virtual .build-deps \
     py-pip \
-    py-setuptools \
-    zip \
+    && apk add -v \
+        bash \
+        curl \
+        groff \
+        jq \
+        make \
+        python \
+        py-setuptools \
+        zip \
 
-# Install aws-cli, s3cmd, docker-compose
-&& pip install --upgrade awscli==${AWS_CLI_VERSION} awsebcli==${EB_CLI_VERSION} s3cmd==${S3_CMD_VERSION} python-magic docker-compose \
-&& apk del -v --purge py-pip \
-&& rm /var/cache/apk/* \
+    && pip install --upgrade \
+        awscli==${AWS_CLI_VERSION} \
+        awsebcli==${EB_CLI_VERSION} \
+        s3cmd==${S3_CMD_VERSION} \
+        docker-compose==${DOCKER_COMPOSE_VERSION} \
+        python-magic \
 
-# Install ecs-cli
-&& curl -o /usr/local/bin/ecs-cli https://s3.amazonaws.com/amazon-ecs-cli/ecs-cli-${CONTAINER_ARCHITECTURE}-v${ECS_CLI_VERSION} \
-&& chmod +x /usr/local/bin/ecs-cli
+    && curl -o /usr/local/bin/ecs-cli https://s3.amazonaws.com/amazon-ecs-cli/ecs-cli-${CONTAINER_ARCHITECTURE}-v${ECS_CLI_VERSION} \
+    && chmod +x /usr/local/bin/ecs-cli \
+&& rm -r /root/.cache \
+&& apk del -v .build-deps \
+&& rm /var/cache/apk/*
+

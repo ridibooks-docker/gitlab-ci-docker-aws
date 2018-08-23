@@ -2,32 +2,40 @@
 
 set -e
 
-DOCKER_TAG=${DOCKER_TAG:-latest}
+source .env
 
-if [ -z "${AWS_CLI_VERSION}" ]; then
-    AWS_CLI_VERSION=1.15.45
+DOCKER_TAG=${1}
+
+function print_usage
+{
+    echo
+    echo "Usage: build.sh <DOCKER_TAG>"
+    echo
+    echo "Example:"
+    echo "  build.sh latest"
+}
+
+if [[ -z "${DOCKER_TAG}" ]]
+then
+    echo "No DOCKER_TAG specified."
+    print_usage
+    exit 1
 fi
-
-if [ -z "${ECS_CLI_VERSION}" ]; then
-    ECS_CLI_VERSION=1.7.0
-fi
-
-if [ -z "${S3_CMD_VERSION}" ]; then
-    S3_CMD_VERSION=2.1.0
-fi
-
-CONTAINER_ARCHITECTURE=linux-amd64
 
 echo "=> Building start with args"
 echo "CONTAINER_ARCHITECTURE=${CONTAINER_ARCHITECTURE}"
 echo "AWS_CLI_VERSION=${AWS_CLI_VERSION}"
 echo "ECS_CLI_VERSION=${ECS_CLI_VERSION}"
+echo "EB_CLI_VERSION=${EB_CLI_VERSION}"
 echo "S3_CMD_VERSION=${S3_CMD_VERSION}"
+echo "DOCKER_COMPOSE_VERSION=${DOCKER_COMPOSE_VERSION}"
 
-echo "Build a image - ridibooks/gitlab-ci-docker-aws:${DOCKER_TAG}"
+echo "Build a image - gitlab-ci-docker-aws:${DOCKER_TAG}"
 docker build --pull \
-  --build-arg CONTAINER_ARCHITECTURE=${CONTAINER_ARCHITECTURE} \
-  --build-arg AWS_CLI_VERSION=${AWS_CLI_VERSION} \
-  --build-arg ECS_CLI_VERSION=${ECS_CLI_VERSION} \
-  --build-arg S3_CMD_VERSION=${S3_CMD_VERSION} \
-  -t ridibooks/gitlab-ci-docker-aws:${DOCKER_TAG} .
+  --build-arg "CONTAINER_ARCHITECTURE=${CONTAINER_ARCHITECTURE}" \
+  --build-arg "AWS_CLI_VERSION=${AWS_CLI_VERSION}" \
+  --build-arg "ECS_CLI_VERSION=${ECS_CLI_VERSION}" \
+  --build-arg "EB_CLI_VERSION=${EB_CLI_VERSION}" \
+  --build-arg "S3_CMD_VERSION=${S3_CMD_VERSION}" \
+  --build-arg "DOCKER_COMPOSE_VERSION=${DOCKER_COMPOSE_VERSION}" \
+  -t "gitlab-ci-docker-aws:${DOCKER_TAG}" .

@@ -1,26 +1,29 @@
-sudo: required
-
+os: linux
+sudo: false
+dist: trusty
 language: generic
 
-branches:
-  only:
-  - master
+before_install:
+  # Docker latest
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  - sudo apt-get update
+  - sudo apt-get -y install docker-ce
 
-services:
-  - docker
-
-env:
-  # 1.0
-  - DOCKER_TAG=1.0 AWS_CLI_VERSION=1.14.5 ECS_CLI_VERSION=1.0.0 EB_CLI_VERSION=3.14.2 S3_CMD_VERSION=2.0.1
-  # 1.1
-  - DOCKER_TAG=1.1 AWS_CLI_VERSION=1.14.5 ECS_CLI_VERSION=1.4.0 EB_CLI_VERSION=3.14.2 S3_CMD_VERSION=2.0.1
-  # 1.2
-  - DOCKER_TAG=1.2 AWS_CLI_VERSION=1.15.45 ECS_CLI_VERSION=1.6.0 EB_CLI_VERSION=3.14.2 S3_CMD_VERSION=2.0.1
-  # 1.3
-  - DOCKER_TAG=1.3 AWS_CLI_VERSION=1.15.45 ECS_CLI_VERSION=1.7.0 EB_CLI_VERSION=3.14.2 S3_CMD_VERSION=2.0.1
-  # latest
-  - DOCKER_TAG=latest AWS_CLI_VERSION=1.15.45 ECS_CLI_VERSION=1.7.0 EB_CLI_VERSION=3.14.2 S3_CMD_VERSION=2.0.1
+  # Docker Compose 1.21.1
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/1.21.1/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
 
 script:
-  - bin/build.sh
-  - bin/push.sh
+  - bin/build.sh latest
+  - bin/test.sh
+
+deploy:
+  # Push Docker image
+  - provider: script
+    skip_cleanup: true
+    script: bin/push.sh ridibooks/gitlab-ci-docker-aws ${TRAVIS_TAG}
+    on:
+      tags: true
