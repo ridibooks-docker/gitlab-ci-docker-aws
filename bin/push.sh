@@ -2,7 +2,7 @@
 set -e
 
 # Variables
-TARGET_IMAGE=gitlab-ci-docker:latest
+TARGET_IMAGE=gitlab-ci-docker-aws:latest
 DOCKER_REPO_URI=${1}
 DOCKER_TAG=${2:-$(git rev-parse --short HEAD)} # default = commit hash
 DOCKER_TAG_DEFAULT=latest
