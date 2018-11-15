@@ -29,6 +29,7 @@ echo "ECS_CLI_VERSION=${ECS_CLI_VERSION}"
 echo "EB_CLI_VERSION=${EB_CLI_VERSION}"
 echo "S3_CMD_VERSION=${S3_CMD_VERSION}"
 echo "DOCKER_COMPOSE_VERSION=${DOCKER_COMPOSE_VERSION}"
+echo "CHAMBER_VERSION=${CHAMBER_VERSION}"
 
 echo "Build a image - gitlab-ci-docker-aws:${DOCKER_TAG}"
 docker build --pull \
@@ -38,4 +39,5 @@ docker build --pull \
   --build-arg "EB_CLI_VERSION=${EB_CLI_VERSION}" \
   --build-arg "S3_CMD_VERSION=${S3_CMD_VERSION}" \
   --build-arg "DOCKER_COMPOSE_VERSION=${DOCKER_COMPOSE_VERSION}" \
+  --build-arg "CHAMBER_VERSION=${CHAMBER_VERSION}" \
   -t "gitlab-ci-docker-aws:${DOCKER_TAG}" .
