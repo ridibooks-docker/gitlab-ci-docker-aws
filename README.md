@@ -10,3 +10,4 @@
 - awsebcli
 - s3cmd
 - jq
+- chamber
