@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.4.2] - 2018-11-20
+### Changed
+- Update aws-cli to 1.16.57
+- Update eb-cli to 3.14.6
+- Update ecs-cli to 1.11.1
+- Update docker-compose to 1.21.2
+
 ## [1.4.1] - 2018-11-15
 ### Added
 - Add chamber library
