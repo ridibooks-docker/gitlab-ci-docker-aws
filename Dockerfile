@@ -21,6 +21,7 @@ RUN apk add --no-cache -v --virtual .build-deps \
         jq \
         make \
         python \
+        python3 \
         py-setuptools \
         zip \
     && pip install --upgrade \
@@ -29,6 +30,7 @@ RUN apk add --no-cache -v --virtual .build-deps \
         s3cmd==${S3_CMD_VERSION} \
         docker-compose==${DOCKER_COMPOSE_VERSION} \
         python-magic \
+        pipenv \
     && curl -o /usr/local/bin/ecs-cli https://s3.amazonaws.com/amazon-ecs-cli/ecs-cli-${CONTAINER_ARCHITECTURE}-v${ECS_CLI_VERSION} \
     && chmod +x /usr/local/bin/ecs-cli \
     && curl -Lo /usr/local/bin/chamber https://github.com/segmentio/chamber/releases/download/v${CHAMBER_VERSION}/chamber-v${CHAMBER_VERSION}-linux-amd64 \
