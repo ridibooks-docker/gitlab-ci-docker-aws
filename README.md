@@ -4,10 +4,8 @@
 [![](https://images.microbadger.com/badges/image/ridibooks/gitlab-ci-docker-aws.svg)](https://microbadger.com/images/ridibooks/gitlab-ci-docker-aws "Get your own image badge on microbadger.com")
 
 ## Installed
+- python3
+- node, yarn
 - docker-compose
-- aws-cli
-- ecs-cli
-- awsebcli
-- s3cmd
+- aws-cli, ecs-cli, awsebcli, s3cmd, chamber
 - jq
-- chamber

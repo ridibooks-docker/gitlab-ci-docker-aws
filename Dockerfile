@@ -1,6 +1,7 @@
-FROM mhart/alpine-node:10.15.1 as node
-FROM library/docker:stable
+ARG NODEJS_VERSION
+FROM mhart/alpine-node:${NODEJS_VERSION} as node
 
+FROM library/docker:stable
 ARG CONTAINER_ARCHITECTURE=linux-amd64
 ARG AWS_CLI_VERSION
 ARG ECS_CLI_VERSION
@@ -40,26 +41,11 @@ RUN apk add --no-cache -v --virtual .build-deps \
 && apk del -v .build-deps \
 && rm /var/cache/apk/*
 
-# install nodejs
+# Install Node.js
 # https://github.com/mhart/alpine-node#example-dockerfile-for-your-own-nodejs-project
 COPY --from=node /usr/bin/node /usr/bin/
 COPY --from=node /usr/lib/libgcc* /usr/lib/libstdc* /usr/lib/
 
-ENV YARN_VERSION 1.13.0
-RUN apk add --no-cache --virtual .build-deps-yarn curl gnupg tar \
-  && for key in \
-    6A010C5166006599AA17F08146C2130DFD2497F5 \
-  ; do \
-    gpg --batch --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys "$key" || \
-    gpg --batch --keyserver hkp://ipv4.pool.sks-keyservers.net --recv-keys "$key" || \
-    gpg --batch --keyserver hkp://pgp.mit.edu:80 --recv-keys "$key" ; \
-  done \
-  && curl -fsSLO --compressed "https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz" \
-  && curl -fsSLO --compressed "https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz.asc" \
-  && gpg --batch --verify yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz \
-  && mkdir -p /opt \
-  && tar -xzf yarn-v$YARN_VERSION.tar.gz -C /opt/ \
-  && ln -s /opt/yarn-v$YARN_VERSION/bin/yarn /usr/local/bin/yarn \
-  && ln -s /opt/yarn-v$YARN_VERSION/bin/yarnpkg /usr/local/bin/yarnpkg \
-  && rm yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz \
-  && apk del .build-deps-yarn
+COPY --from=node /usr/local/share/yarn /usr/local/share/yarn
+RUN ln -s /usr/local/share/yarn/bin/yarn /usr/local/bin/ \
+&& ln -s /usr/local/share/yarn/bin/yarnpkg /usr/local/bin/
