@@ -8,7 +8,7 @@
 - node, npm, yarn
 - docker-compose
 - aws-cli, ecs-cli, awsebcli, s3cmd, chamber
-- jq
+- git, jq, mysql-client
 
 ## To build
 ```bash
