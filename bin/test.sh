@@ -14,6 +14,8 @@ TEST_CMD="aws --version 2>&1 | grep -q 'aws-cli/${AWS_CLI_VERSION}' \
     && echo \"s3cmd version=${S3_CMD_VERSION}\" \
     && node --version 2>&1 | grep -q '${NODEJS_VERSION}' \
     && echo \"node version=${NODEJS_VERSION}\" \
+    && npm --version 2>&1 | grep -q '${NPM_VERSION}' \
+    && echo \"npm version=${NPM_VERSION}\" \
     && yarn --version 2>&1 | grep -q '${YARN_VERSION}' \
     && echo \"yarn version=${YARN_VERSION}\" \
     && docker-compose --version 2>&1 | grep -q 'docker-compose version ${DOCKER_COMPOSE_VERSION}' \

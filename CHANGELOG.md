@@ -6,9 +6,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.7] - 2019-03-29
+### Added
+- Add npm
+
 ## [1.6] - 2019-02-20
 ### Added
-- Add Node.js, npm, Yarn
+- Add Node.js, Yarn
 
 ## [1.5] - 2018-12-05
 ### Added

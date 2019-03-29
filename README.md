@@ -5,7 +5,17 @@
 
 ## Installed
 - python3
-- node, yarn
+- node, npm, yarn
 - docker-compose
 - aws-cli, ecs-cli, awsebcli, s3cmd, chamber
 - jq
+
+## To build
+```bash
+bin/build.sh latest
+```
+
+## To test
+```bash
+bin/test.sh
+```
