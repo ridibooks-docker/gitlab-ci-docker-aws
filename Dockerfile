@@ -44,6 +44,7 @@ RUN apk add --no-cache -v --virtual .build-deps \
 # Install Node.js
 # https://github.com/mhart/alpine-node#example-dockerfile-for-your-own-nodejs-project
 COPY --from=node /usr/bin/node /usr/bin/
+COPY --from=node /usr/bin/npm /usr/bin/
 COPY --from=node /usr/lib/libgcc* /usr/lib/libstdc* /usr/lib/
 
 COPY --from=node /usr/local/share/yarn /usr/local/share/yarn
