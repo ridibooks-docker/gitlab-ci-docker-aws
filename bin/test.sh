@@ -18,6 +18,10 @@ TEST_CMD="aws --version 2>&1 | grep -q 'aws-cli/${AWS_CLI_VERSION}' \
     && echo \"npm version=${NPM_VERSION}\" \
     && yarn --version 2>&1 | grep -q '${YARN_VERSION}' \
     && echo \"yarn version=${YARN_VERSION}\" \
+    && git --version 2>&1 | grep -q '${GIT_VERSION}' \
+    && echo \"git version=${GIT_VERSION}\" \
+    && mysql --version 2>&1 | grep -q '${MYSQL_VERSION}' \
+    && echo \"mysql version=${MYSQL_VERSION}\" \
     && docker-compose --version 2>&1 | grep -q 'docker-compose version ${DOCKER_COMPOSE_VERSION}' \
     && echo \"docker-compose version=${DOCKER_COMPOSE_VERSION}\""
 

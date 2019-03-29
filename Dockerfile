@@ -19,15 +19,15 @@ RUN apk add --no-cache -v --virtual .build-deps \
     && apk add -v \
         bash \
         curl \
+        git \
         groff \
         jq \
         make \
+        mysql-client \
         python \
         python3 \
         py-setuptools \
         zip \
-        git \
-        mysql-client \
     && pip install --upgrade \
         awscli==${AWS_CLI_VERSION} \
         awsebcli==${EB_CLI_VERSION} \
