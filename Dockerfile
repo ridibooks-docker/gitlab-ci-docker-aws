@@ -26,6 +26,8 @@ RUN apk add --no-cache -v --virtual .build-deps \
         python3 \
         py-setuptools \
         zip \
+        git \
+        mysql-client \
     && pip install --upgrade \
         awscli==${AWS_CLI_VERSION} \
         awsebcli==${EB_CLI_VERSION} \
