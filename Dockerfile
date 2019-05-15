@@ -15,7 +15,12 @@ ENV PAGER=more
 
 # groff is required by aws-cli
 RUN apk add --no-cache -v --virtual .build-deps \
+    gcc \
+    libffi-dev \
+    musl-dev \
+    openssl-dev \
     py-pip \
+    python2-dev \
     && apk add -v \
         bash \
         curl \

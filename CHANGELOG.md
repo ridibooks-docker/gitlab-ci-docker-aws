@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.9] - 2019-05-16
+### Changed
+- Update aws-cli to 1.16.158
+- Update eb-cli to 3.15.0
+- Update ecs-cli to 1.14.1
+- Update docker-compose to 1.23.2
+- Update chamber to 2.3.3
+
 ## [1.8] - 2019-03-29
 ### Added
 - Add git
