@@ -39,6 +39,7 @@ RUN apk add --no-cache -v --virtual .build-deps \
         docker-compose==${DOCKER_COMPOSE_VERSION} \
         python-magic \
         pipenv \
+        --ignore-installed six \
     && curl -o /usr/local/bin/ecs-cli https://s3.amazonaws.com/amazon-ecs-cli/ecs-cli-${CONTAINER_ARCHITECTURE}-v${ECS_CLI_VERSION} \
     && chmod +x /usr/local/bin/ecs-cli \
     && curl -Lo /usr/local/bin/chamber https://github.com/segmentio/chamber/releases/download/v${CHAMBER_VERSION}/chamber-v${CHAMBER_VERSION}-linux-amd64 \
