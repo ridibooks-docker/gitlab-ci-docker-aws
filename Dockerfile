@@ -20,7 +20,7 @@ RUN apk add --no-cache -v --virtual .build-deps \
     musl-dev \
     openssl-dev \
     py-pip \
-    python2-dev \
+    python3-dev \
     && apk add -v \
         bash \
         curl \
