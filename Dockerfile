@@ -29,7 +29,6 @@ RUN apk add --no-cache -v --virtual .build-deps \
         jq \
         make \
         mysql-client \
-        python \
         python3 \
         py-setuptools \
         zip \
