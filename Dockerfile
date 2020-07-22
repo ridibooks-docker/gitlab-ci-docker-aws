@@ -18,7 +18,6 @@ RUN apk add --no-cache -v --virtual .build-deps \
     libffi-dev \
     musl-dev \
     py-pip \
-    python3-dev \
     zlib-dev\
     build-base \
     openssl-dev \
@@ -32,9 +31,7 @@ RUN apk add --no-cache -v --virtual .build-deps \
     make \
     mysql-client \
     python3 \
-    py-setuptools \
     zip \
-&& pip install --force-reinstall distlib==0.3.0 \
 && pip install --upgrade \
     awscli==${AWS_CLI_VERSION} \
     s3cmd==${S3_CMD_VERSION} \
