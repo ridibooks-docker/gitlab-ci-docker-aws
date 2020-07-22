@@ -18,6 +18,7 @@ RUN apk add --no-cache -v --virtual .build-deps \
     libffi-dev \
     musl-dev \
     py-pip \
+    python3-dev \
     zlib-dev\
     build-base \
     openssl-dev \
@@ -31,13 +32,17 @@ RUN apk add --no-cache -v --virtual .build-deps \
     make \
     mysql-client \
     python3 \
+    py-setuptools \
     zip \
 && pip install --upgrade \
-    awscli==${AWS_CLI_VERSION} \
     s3cmd==${S3_CMD_VERSION} \
     docker-compose==${DOCKER_COMPOSE_VERSION} \
     python-magic \
     pipenv \
+    && curl -o /awscli-bundle.zip https://s3.amazonaws.com/aws-cli/awscli-bundle-${AWS_CLI_VERSION}.zip \
+    && unzip /awscli-bundle.zip
+    && ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+    && chmod +x /usr/local/bin/aws \
     && git clone https://github.com/aws/aws-elastic-beanstalk-cli-setup.git / \
     && python /aws-elastic-beanstalk-cli-setup/scripts/ebcli_installer.py --version ${EB_CLI_VERSION} --location /usr/local/bin/eb-cli \
     && chmod +x /usr/local/bin/eb-cli \
