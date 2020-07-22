@@ -40,6 +40,7 @@ RUN apk add --no-cache -v --virtual .build-deps \
     docker-compose==${DOCKER_COMPOSE_VERSION} \
     python-magic \
     pipenv \
+    --ignore-install distlib \
     && git clone https://github.com/aws/aws-elastic-beanstalk-cli-setup.git / \
     && python /aws-elastic-beanstalk-cli-setup/scripts/ebcli_installer.py --version ${EB_CLI_VERSION} --location /usr/local/bin/eb-cli \
     && chmod +x /usr/local/bin/eb-cli \
