@@ -34,7 +34,6 @@ RUN apk add --no-cache -v --virtual .build-deps \
     py-setuptools \
     zip \
 && pip install --upgrade \
-    s3cmd==${S3_CMD_VERSION} \
     docker-compose==${DOCKER_COMPOSE_VERSION} \
     python-magic \
     pipenv \
