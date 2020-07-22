@@ -13,33 +13,36 @@ ARG CHAMBER_VERSION
 # aws-cli uses 'less -R'. However less with R option is not available in alpine linux
 ENV PAGER=more
 
-# groff is required by aws-cli
 RUN apk add --no-cache -v --virtual .build-deps \
     gcc \
     libffi-dev \
     musl-dev \
-    openssl-dev \
     py-pip \
     python3-dev \
-    && apk add -v \
-        bash \
-        curl \
-        git \
-        groff \
-        jq \
-        make \
-        mysql-client \
-        python3 \
-        py-setuptools \
-        zip \
-    && pip install --upgrade \
-        awscli==${AWS_CLI_VERSION} \
-        awsebcli==${EB_CLI_VERSION} \
-        s3cmd==${S3_CMD_VERSION} \
-        docker-compose==${DOCKER_COMPOSE_VERSION} \
-        python-magic \
-        pipenv \
-        --force-reinstall six \
+    zlib-dev\
+    build-base \
+    openssl-dev \
+    ncurses-dev \
+&& apk add -v \
+    bash \
+    curl \
+    git \
+    groff \
+    jq \
+    make \
+    mysql-client \
+    python3 \
+    py-setuptools \
+    zip \
+&& pip install --upgrade \
+    awscli==${AWS_CLI_VERSION} \
+    s3cmd==${S3_CMD_VERSION} \
+    docker-compose==${DOCKER_COMPOSE_VERSION} \
+    python-magic \
+    pipenv \
+    && git clone https://github.com/aws/aws-elastic-beanstalk-cli-setup.git / \
+    && python /aws-elastic-beanstalk-cli-setup/scripts/ebcli_installer.py --version ${EB_CLI_VERSION} --location /usr/local/bin/eb-cli \
+    && chmod +x /usr/local/bin/eb-cli \
     && curl -o /usr/local/bin/ecs-cli https://s3.amazonaws.com/amazon-ecs-cli/ecs-cli-${CONTAINER_ARCHITECTURE}-v${ECS_CLI_VERSION} \
     && chmod +x /usr/local/bin/ecs-cli \
     && curl -Lo /usr/local/bin/chamber https://github.com/segmentio/chamber/releases/download/v${CHAMBER_VERSION}/chamber-v${CHAMBER_VERSION}-linux-amd64 \
