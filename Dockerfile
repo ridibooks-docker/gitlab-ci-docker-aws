@@ -34,6 +34,8 @@ RUN apk add --no-cache -v --virtual .build-deps \
     python3 \
     py-setuptools \
     zip \
+&& pip install --upgrade \
+    python-magic \
     && curl -Lo /usr/local/bin/docker-compose https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m) \
     && chmod +x /usr/local/bin/docker-compose \
     && curl -Lo /s3cmd.zip https://sourceforge.net/projects/s3tools/files/s3cmd/${S3_CMD_VERSION}/s3cmd-${S3_CMD_VERSION}.zip/download \
