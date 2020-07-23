@@ -18,6 +18,7 @@ RUN apk add --no-cache -v --virtual .build-deps \
     libffi-dev \
     musl-dev \
     py-pip \
+    python3-dev \
     zlib-dev\
     build-base \
     openssl-dev \
@@ -37,6 +38,9 @@ RUN apk add --no-cache -v --virtual .build-deps \
     docker-compose==${DOCKER_COMPOSE_VERSION} \
     python-magic \
     pipenv \
+    && curl -Lo /s3cmd.zip https://sourceforge.net/projects/s3tools/files/s3cmd/${S3_CMD_VERSION}/s3cmd-${S3_CMD_VERSION}.zip/download \
+    && unzip /s3cmd.zip \
+    && python /s3cmd-${S3_CMD_VERSION}/setup.py install \
     && curl -o /awscli-bundle.zip https://s3.amazonaws.com/aws-cli/awscli-bundle-${AWS_CLI_VERSION}.zip \
     && unzip /awscli-bundle.zip \
     && ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws \
