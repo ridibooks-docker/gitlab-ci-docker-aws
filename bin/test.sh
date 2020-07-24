@@ -4,6 +4,12 @@ set -e
 
 source .env
 
+aws --version \
+ecs-cli --version \
+eb --version \
+s3cmd --version \
+node --version
+
 TEST_CMD="aws --version 2>&1 | grep -q 'aws-cli/${AWS_CLI_VERSION}' \
     && echo \"aws-cli version=${AWS_CLI_VERSION}\" \
     && ecs-cli --version 2>&1 | grep -q 'ecs-cli version ${ECS_CLI_VERSION}' \
