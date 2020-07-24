@@ -17,13 +17,13 @@ RUN apk add --no-cache -v --virtual .build-deps \
     gcc \
     libffi-dev \
     musl-dev \
-    py-pip \
     python3-dev \
     zlib-dev\
     build-base \
     openssl-dev \
     ncurses-dev \
 && apk add -v \
+    py-pip \
     bash \
     curl \
     git \
@@ -47,7 +47,6 @@ RUN apk add --no-cache -v --virtual .build-deps \
     && chmod +x /usr/local/bin/aws \
     && git clone https://github.com/aws/aws-elastic-beanstalk-cli-setup.git /aws-elastic-beanstalk-cli-setup \
     && python /aws-elastic-beanstalk-cli-setup/scripts/ebcli_installer.py --version ${EB_CLI_VERSION} --location / \
-    && export PATH=/.ebcli-virtual-env/executables:$PATH \
     && chmod +x /.ebcli-virtual-env/executables/eb \
     && curl -o /usr/local/bin/ecs-cli https://s3.amazonaws.com/amazon-ecs-cli/ecs-cli-${CONTAINER_ARCHITECTURE}-v${ECS_CLI_VERSION} \
     && chmod +x /usr/local/bin/ecs-cli \
@@ -56,6 +55,8 @@ RUN apk add --no-cache -v --virtual .build-deps \
 && rm -r /root/.cache \
 && apk del -v .build-deps \
 && rm /var/cache/apk/*
+
+ENV PATH "$PATH:/.ebcli-virtual-env/executables"
 
 # Install Node.js
 # https://github.com/mhart/alpine-node#example-dockerfile-for-your-own-nodejs-project
