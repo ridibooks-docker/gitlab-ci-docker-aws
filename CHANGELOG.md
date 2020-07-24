@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [1.10] - 2020-07-16
 ### Changed
 - Update ecs-cli to 1.19.1
+- Update eb-cli to 3.18.1
 
 ## [1.9] - 2019-05-16
 ### Changed
