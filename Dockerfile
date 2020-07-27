@@ -13,33 +13,41 @@ ARG CHAMBER_VERSION
 # aws-cli uses 'less -R'. However less with R option is not available in alpine linux
 ENV PAGER=more
 
-# groff is required by aws-cli
 RUN apk add --no-cache -v --virtual .build-deps \
     gcc \
     libffi-dev \
     musl-dev \
+    python3-dev \
+    zlib-dev\
+    build-base \
     openssl-dev \
+    ncurses-dev \
+&& apk add -v \
     py-pip \
-    python2-dev \
-    && apk add -v \
-        bash \
-        curl \
-        git \
-        groff \
-        jq \
-        make \
-        mysql-client \
-        python \
-        python3 \
-        py-setuptools \
-        zip \
-    && pip install --upgrade \
-        awscli==${AWS_CLI_VERSION} \
-        awsebcli==${EB_CLI_VERSION} \
-        s3cmd==${S3_CMD_VERSION} \
-        docker-compose==${DOCKER_COMPOSE_VERSION} \
-        python-magic \
-        pipenv \
+    bash \
+    curl \
+    git \
+    groff \
+    jq \
+    make \
+    mysql-client \
+    python3 \
+    py-setuptools \
+    zip \
+&& pip install --upgrade \
+    s3cmd==${S3_CMD_VERSION} \
+    docker-compose==${DOCKER_COMPOSE_VERSION} \
+    python-magic \
+    pipenv \
+    --ignore-installed distlib \
+    && ln -s /usr/bin/python3 /usr/bin/python \
+    && curl -o /awscli-bundle.zip https://s3.amazonaws.com/aws-cli/awscli-bundle-${AWS_CLI_VERSION}.zip \
+    && unzip /awscli-bundle.zip \
+    && python awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws \
+    && chmod +x /usr/local/bin/aws \
+    && git clone https://github.com/aws/aws-elastic-beanstalk-cli-setup.git /aws-elastic-beanstalk-cli-setup \
+    && python /aws-elastic-beanstalk-cli-setup/scripts/ebcli_installer.py --version ${EB_CLI_VERSION} --location / \
+    && chmod +x /.ebcli-virtual-env/executables/eb \
     && curl -o /usr/local/bin/ecs-cli https://s3.amazonaws.com/amazon-ecs-cli/ecs-cli-${CONTAINER_ARCHITECTURE}-v${ECS_CLI_VERSION} \
     && chmod +x /usr/local/bin/ecs-cli \
     && curl -Lo /usr/local/bin/chamber https://github.com/segmentio/chamber/releases/download/v${CHAMBER_VERSION}/chamber-v${CHAMBER_VERSION}-linux-amd64 \
@@ -47,6 +55,8 @@ RUN apk add --no-cache -v --virtual .build-deps \
 && rm -r /root/.cache \
 && apk del -v .build-deps \
 && rm /var/cache/apk/*
+
+ENV PATH "$PATH:/.ebcli-virtual-env/executables"
 
 # Install Node.js
 # https://github.com/mhart/alpine-node#example-dockerfile-for-your-own-nodejs-project
